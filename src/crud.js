@@ -15,7 +15,7 @@ const showTodo = () => {
             </label>
           </div>
           <div class="icon">
-            <i class="fa-solid fa-ellipsis-vertical"></i>
+            <i class="fa-solid fa-trash" id="${id}"></i>
           </div>
         </li>`;
     });
@@ -35,4 +35,13 @@ taskInput.addEventListener('submit', (e) => {
   todos.push(task);
   localStorage.setItem('todo-list', JSON.stringify(todos));
   showTodo();
+});
+
+UI.addEventListener('click', (e) => {
+  if (e.target.classList.contains('fa-solid')) {
+    const { id = e.target.id } = e.target;
+    todos.splice(id, 1);
+    localStorage.setItem('todo-list', JSON.stringify(todos));
+    showTodo();
+  }
 });
