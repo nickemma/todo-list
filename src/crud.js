@@ -1,6 +1,7 @@
 const taskInput = document.querySelector('.input-container');
 const taskHandler = document.querySelector('.todo-input');
 const UI = document.querySelector('.lists');
+const clear = document.querySelectorAll('.btn-clear');
 
 let todos = JSON.parse(localStorage.getItem('todo-list'));
 const showTodo = () => {
@@ -61,4 +62,12 @@ UI.addEventListener('click', (e) => {
     const index = parseInt(e.target.getAttribute('id'), 10);
     removeTask(index);
   }
+});
+
+clear.forEach((element) => {
+  element.addEventListener('click', () => {
+    localStorage.removeItem('todo-list');
+    todos.length = 0;
+    showTodo();
+  });
 });
