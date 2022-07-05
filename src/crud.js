@@ -11,11 +11,11 @@ const showTodo = () => {
           <div class="check">
             <label for="${id}">
               <input type="checkbox" id="${id}" />
-              <p>${todo.title}</p>
+              <p>${todo.description}</p>
             </label>
           </div>
           <div class="icon">
-            <i class="fa-solid fa-trash" id="${id}"></i>
+          <i class="fa-solid fa-trash" id="${todo.index}"></i>
           </div>
         </li>`;
     });
@@ -28,20 +28,37 @@ taskInput.addEventListener('submit', (e) => {
   e.preventDefault();
   const userInput = taskHandler.value.trim();
   taskHandler.value = '';
+  if (!userInput) return;
   if (!todos) {
     todos = [];
   }
-  const task = { title: userInput, status: 'completed' };
+  const task = {
+    description: userInput,
+    completed: false,
+    index: todos.length,
+  };
   todos.push(task);
   localStorage.setItem('todo-list', JSON.stringify(todos));
   showTodo();
 });
 
+const removeTask = (index) => {
+  const newArr = todos.filter((element) => element.index !== index);
+  todos.length = 0;
+  let i = 0;
+  newArr.forEach((element) => {
+    element.index = i;
+    i += 1;
+  });
+
+  todos.push(...newArr);
+  localStorage.setItem('todo-list', JSON.stringify(todos));
+  showTodo();
+};
+
 UI.addEventListener('click', (e) => {
   if (e.target.classList.contains('fa-solid')) {
-    const { id = e.target.id } = e.target;
-    todos.splice(id, 1);
-    localStorage.setItem('todo-list', JSON.stringify(todos));
-    showTodo();
+    const index = parseInt(e.target.getAttribute('id'), 10);
+    removeTask(index);
   }
 });
