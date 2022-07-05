@@ -44,7 +44,7 @@ html {
   font-size: 1.6rem;
 }
 
-.lists li {
+.lists .list-info {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -52,7 +52,7 @@ html {
   border-bottom: 1px solid #e6e6e6;
 }
 
-.lists .check {
+.lists .check label {
   display: flex;
   align-items: center;
 }
@@ -62,17 +62,17 @@ html {
   color: #454545;
 }
 
-.lists .check h2 {
-  font-size: 2.5rem;
+.lists .check p {
+  font-size: 2.2rem;
   padding: 0 15px;
-  color: #818080;
+  color: #474545;
   font-style: italic;
 }
 
 .icon i {
-  color: #cfcfcf;
+  color: #666464;
   font-size: 2.5rem;
-  cursor: cell;
+  cursor: pointer;
 }
 
 .clear-container {
