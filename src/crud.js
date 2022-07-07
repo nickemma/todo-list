@@ -1,17 +1,21 @@
+import clearList from './clear';
+
 const taskInput = document.querySelector('.input-container');
 const taskHandler = document.querySelector('.todo-input');
 const UI = document.querySelector('.lists');
+const clear = document.querySelector('.btn-clear');
 
 let todos = JSON.parse(localStorage.getItem('todo-list'));
 const showTodo = () => {
   let li = '';
   if (todos) {
-    todos.forEach((todo, id) => {
+    todos.forEach((todo) => {
+      const flag = todo.completed ? 'checked' : '';
       li += ` <li class="list-info">
           <div class="check">
-            <label for="${id}">
-              <input type="checkbox" id="${id}" />
-              <p>${todo.description}</p>
+            <label for="">
+              <input type="checkbox" ${flag} class="check" data-check="${todo.index}"/>
+              <input type="text" class="todo-input style" data-desc="${todo.index}" value="${todo.description}" />
             </label>
           </div>
           <div class="icon">
@@ -62,3 +66,34 @@ UI.addEventListener('click', (e) => {
     removeTask(index);
   }
 });
+
+const update = (e) => {
+  const clicked = e.target.closest('.todo-input');
+  if (!clicked) return;
+  clicked.addEventListener('keyup', () => {
+    const task = JSON.parse(localStorage.getItem('todo-list')) || [];
+    const targetData = parseInt(clicked.getAttribute('data-desc'), 10);
+    const update = task.find((todo) => todo.index === targetData);
+    update.description = clicked.value.trim();
+    localStorage.setItem('todo-list', JSON.stringify(task));
+  });
+};
+
+UI.addEventListener('click', update);
+
+clear.addEventListener('click', () => {
+  const setting = JSON.parse(localStorage.getItem('todo-list')) || [];
+  const notCompleted = setting.filter((todo) => !todo.completed);
+  todos.length = 0;
+  let i = 0;
+  notCompleted.forEach((element) => {
+    element.index = i;
+    i += 1;
+  });
+
+  todos.push(...notCompleted);
+  localStorage.setItem('todo-list', JSON.stringify(todos));
+  showTodo();
+});
+
+UI.addEventListener('click', clearList);
