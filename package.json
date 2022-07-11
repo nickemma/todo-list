@@ -5,6 +5,7 @@
     "eslint": "^7.32.0",
     "eslint-config-airbnb-base": "^14.2.1",
     "eslint-plugin-import": "^2.26.0",
+    "gh-pages": "^4.0.0",
     "html-webpack-plugin": "^5.5.0",
     "style-loader": "^3.3.1",
     "stylelint": "^13.13.1",
@@ -318,6 +319,8 @@
     "zwitch": "^1.0.5"
   },
   "scripts": {
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d dist",
     "test": "echo \"Error: no test specified\" && exit 1",
     "watch": "webpack --watch",
     "start": "webpack serve --open",
@@ -333,5 +336,5 @@
   "bugs": {
     "url": "https://github.com/NickEmma/todo-list/issues"
   },
-  "homepage": "https://github.com/NickEmma/todo-list#readme"
+  "homepage": "https://nickemma.github.io/todo-list/"
 }

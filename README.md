@@ -58,6 +58,7 @@ $ npm start to run the local server
 ---
 
 ## Click here for live version
+
 - live demo: [live demo](https://nickemma.github.io/todo-list/)
 
 ## Authors
